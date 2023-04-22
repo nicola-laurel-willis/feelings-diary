@@ -1,0 +1,22 @@
+
+<form action="{% url 'feelings_diary_app:save_entry' %}" method="post">
+  {% csrf_token %}
+  <fieldset>
+      <label for="text-input">How are you feeling right now?</label>
+      <input type="text" id="text-input" name="text-input" maxlength=80>
+
+  </fieldset>
+  <input type="submit" value="Submit">
+</form>
+
+{% if diary_entry_list %}
+    <ul>
+    {% for diary_entry in diary_entry_list %}
+        <li>{{ diary_entry.entry_text }}</li>
+        <li>{{ diary_entry.pub_date|time}}, {{ diary_entry.pub_date|date }}</li>
+        <br>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No entries yet</p>
+{% endif %}
